@@ -1,11 +1,13 @@
-import React from 'react'
-import { prependOnceListener } from "cluster";
+import React from 'react';
+import Aux from '../../hoc/Aux';
 
-const layout = (props) => {
-    <React.Fragment>
+const layout = (props) => (
+    <Aux>
     <div>Toolbar, SideDrawer, Backdrop</div>
     <main>
         {props.children}
     </main>
-    </React.Fragment>
-};
+    </Aux>
+);
+
+export default layout;
