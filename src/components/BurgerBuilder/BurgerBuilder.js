@@ -34,23 +34,38 @@ class BurgerBuilder extends Component {
         purchasing: false,
         loading: false
     }
-
-    componentDidMount () {
-        axios.get('https://react-myburger-ad340.firebaseio.com/ingredients.json')
-        .then(response => {
-            this.setState({ingredients: response.data});
-        })
+    componentDidMount() {
+        console.log(this.props)
+        axios.get('https://react-myburger-ad340.firebaseio.com/ingredients.json').then(
+            response => {
+                this.setState({ingredients: response.data});
+            }
+        )
     }
+
 
     updatePurchaseState (ingredients) {
         const sum = Object.keys(ingredients)
             .map(igKey => {
                 return ingredients[igKey];
+                //sum is the aggregate of the values
+                //el is each value passed from the map for each key
             }).reduce((sum, el) => {
                 return sum + el;
             }, 0);
             this.setState({purchaseable: sum > 0});
+            /*console.log('Original method ' , sum) ;
+            this.updatePurchaseState_NEW(ingredients) ; */
     }
+
+    /*updatePurchaseState_NEW (ingredients) {
+        const sum = Object.values(ingredients)
+            .reduce((sum, el) => {
+                return sum + el;
+            }, 0);
+            // this.setState({purchaseable: sum > 0});
+            console.log('NEW method ' , sum) ;
+    } */
 
     addIngredientHandler = (type) => {
         const oldCount = this.state.ingredients[type];
@@ -58,6 +73,7 @@ class BurgerBuilder extends Component {
         const updatedIngredients = {
             ...this.state.ingredients
         };
+        console.log(updatedIngredients);
         updatedIngredients[type] = updatedCount;
         const priceAddition = INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
@@ -72,10 +88,11 @@ class BurgerBuilder extends Component {
             return;
         }
         const updatedCount = oldCount - 1;
-        const updatedIngredients = {
+       const updatedIngredients = {
             ...this.state.ingredients
-        };
+        }; 
         updatedIngredients[type] = updatedCount;
+
         const priceDeduction = INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice - priceDeduction;
@@ -92,27 +109,31 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
+        
+
         //alert('You continue!');
-        this.setState( { loading: true } );
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Shrey',
-                address: {
-                    street: 'Teststreet 1',
-                },
-                email: 'test@test.com'
-            },
-            deliveryMethod: 'fastest'
-        }
-        axios.post( '/orders.json', order )
-             .then( response => {
-                 this.setState({ loading: false, purchasing: false });
-            } )
-            .catch( error => {
-                 this.setState({ loading: false, purchasing: false });
-            } );
+        // this.setState( { loading: true } );
+        // const order = {
+        //     ingredients: this.state.ingredients,
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Shrey',
+        //         address: {
+        //             street: 'Teststreet 1',
+        //         },
+        //         email: 'test@test.com'
+        //     },
+        //     deliveryMethod: 'fastest'
+        // }
+        // axios.post( '/orders.json', order )
+        //      .then( response => {
+        //          this.setState({ loading: false, purchasing: false });
+        //     } )
+        //     .catch( error => {
+        //          this.setState({ loading: false, purchasing: false });
+        //     } );
+
+        this.props.history.push('/checkout');
     }
     render() {
         const disabledInfo = {

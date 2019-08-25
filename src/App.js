@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Layout from './components/Layout/Layout.js';
 import BurgerBuilder from './components/BurgerBuilder/BurgerBuilder'
+import Checkout from './containers/Checkout/Checkout';
+import {Route} from 'react-router-dom'
 
 class App extends Component {
   render() {
@@ -8,7 +10,8 @@ class App extends Component {
       <div >
         
         <Layout>
-          <BurgerBuilder />
+          <Route path="/" exact component={BurgerBuilder} />
+          <Route path="/checkout" component={Checkout} />
         </Layout>
       </div>
     );
