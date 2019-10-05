@@ -22,13 +22,12 @@ class BurgerBuilder extends Component {
     } */
 
     state = {
-        ingredients: null,
-        /*{
+        ingredients: {
             salad: 0,
             bacon: 0,
             cheese: 0,
             meat: 0
-        }, */
+        },
         totalPrice: 4,
         purchaseable: false,
         purchasing: false,
@@ -36,11 +35,12 @@ class BurgerBuilder extends Component {
     }
     componentDidMount() {
         console.log(this.props)
-        axios.get('https://react-myburger-ad340.firebaseio.com/ingredients.json').then(
-            response => {
-                this.setState({ingredients: response.data});
-            }
-        )
+        // axios.get('https://react-myburger-ad340.firebaseio.com/ingredients.json').then(
+        //     response => {
+        //         this.setState({ingredients: response.data});
+        //     }).catch( error => {
+        //         this.setState({error: true});
+        //     });
     }
 
 
