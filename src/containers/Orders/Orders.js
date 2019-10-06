@@ -1,14 +1,10 @@
-import React, {Component} from 'react';
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import React, { Component } from 'react';
+
 import Order from '../../components/Order/Order';
-import Layout from '../../components/Layout/Layout';
-import {Route, Switch} from 'react-router-dom';
-import Checkout from '../Checkout/Checkout';
-import axios from '../../axios-orders'
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
+import axios from '../../axios-orders';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class Orders extends Component {
-
     state = {
         orders: [],
         loading: true
