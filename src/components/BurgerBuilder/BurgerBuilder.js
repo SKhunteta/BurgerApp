@@ -24,12 +24,12 @@ class BurgerBuilder extends Component {
     } */
 
     state = {
-        ingredients: {
-            salad: 0,
-            bacon: 0,
-            cheese: 0,
-            meat: 0
-        },
+        // ingredients: {
+        //     salad: 0,
+        //     bacon: 0,
+        //     cheese: 0,
+        //     meat: 0
+        // },
         totalPrice: 4,
         purchaseable: false,
         purchasing: false,
@@ -125,20 +125,20 @@ class BurgerBuilder extends Component {
     }
     render() {
         const disabledInfo = {
-            ...this.state.ingredients
+            ...this.props.ings
         };
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] <= 0
         }
         let orderSummary = null;
             let burger = <Spinner />
-            if ( this.state.ingredients ) {
+            if ( this.props.ings ) {
                 burger = ( 
             <Aux>
             <Burger ingredients={this.state.ingredients} />
             <BuildControls 
-            ingredientAdded={this.addIngredientHandler}
-            ingredientDeducted={this.removeIngredientHandler}
+            ingredientAdded={this.props.onIngredientAdded}
+            ingredientDeducted={this.props.onIngredientRemoved}
             disabled={disabledInfo}
             purchaseable = {this.state.purchaseable}
             ordered = {this.purchaseHandler}
@@ -146,7 +146,7 @@ class BurgerBuilder extends Component {
             </Aux>
             );
             orderSummary = <OrderSummary 
-            ingredients={this.state.ingredients}
+            ingredients={this.props.ings}
             price = {this.state.totalPrice}
             purchaseCanceled={this.purchaseCancelHandler}
             purchaseContinued={this.purchaseContinueHandler} />
